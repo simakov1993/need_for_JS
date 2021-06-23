@@ -5,10 +5,6 @@ const score = document.querySelector('.score'),
 
 car.classList.add('car');
 
-start.addEventListener('click', startGame);
-document.addEventListener('keydown', startRun);
-document.addEventListener('keyup', stopRun);
-
 const keys = {
     ArrowUp: false,
     ArrowDown: false,
@@ -25,7 +21,7 @@ const setting = {
 
 function getQuantityElements(heightElement) {
     return document.documentElement.clientHeight / heightElement + 1;
-} 
+}
 
 function startGame() {
     start.classList.add('hide');
@@ -93,20 +89,20 @@ function stopRun(event) {
 
 function moveRoad() {
     let lines = document.querySelectorAll('.line');
-    lines.forEach(function(line) {
-       line.y += setting.speed;
-       line.style.top = line.y + 'px'; 
+    lines.forEach(function (line) {
+        line.y += setting.speed;
+        line.style.top = line.y + 'px';
 
-       if (line.y >= document.documentElement.clientHeight) {
-           line.y = -100;
-       }
+        if (line.y >= document.documentElement.clientHeight) {
+            line.y = -100;
+        }
 
     });
 }
 
 function moveEnemy() {
     let enemy = document.querySelectorAll('.enemy');
-    enemy.forEach(function(item) {
+    enemy.forEach(function (item) {
         item.y += setting.speed / 2;
         item.style.top = item.y + 'px';
 
@@ -115,6 +111,8 @@ function moveEnemy() {
             item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
         }
     });
-
-    
 }
+
+start.addEventListener('click', startGame);
+document.addEventListener('keydown', startRun);
+document.addEventListener('keyup', stopRun);
