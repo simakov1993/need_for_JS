@@ -50,7 +50,6 @@ function startGame() {
         enemy.style.top = enemy.y + 'px';
         enemy.style.background = 'transparent url("./image/enemy2.png") center / cover no-repeat';
         gameArea.appendChild(enemy);
-        console.log(Math.random());
     }
     setting.score = 0;
     setting.start = true;
