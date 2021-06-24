@@ -15,9 +15,12 @@ const keys = {
 const setting = {
     start: false,
     score: 0,
-    speed: 3,
+    speed: 10,
     traffic: 3
 };
+
+const gameAudio = new Audio('./sounds/element-eighty-broken-promises.mp3');
+const gameOverAudio = new Audio('./sounds/Fatality Mortal Kombat Sound Effect.mp3');
 
 function getQuantityElements(heightElement) {
     return document.documentElement.clientHeight / heightElement + 1;
@@ -26,6 +29,10 @@ function getQuantityElements(heightElement) {
 function startGame() {
     start.classList.add('hide');
     gameArea.innerHTML = '';
+
+    gameAudio.play();
+    gameAudio.volume = 0.75;
+
 
     for (let i = 0; i < getQuantityElements(100); i++) {
         const line = document.createElement('div');
@@ -43,6 +50,7 @@ function startGame() {
         enemy.style.top = enemy.y + 'px';
         enemy.style.background = 'transparent url("./image/enemy2.png") center / cover no-repeat';
         gameArea.appendChild(enemy);
+        console.log(Math.random());
     }
     setting.score = 0;
     setting.start = true;
@@ -85,12 +93,17 @@ function playGame() {
 
 function startRun(event) {
     event.preventDefault();
-    keys[event.key] = true;
+    if (event.key in keys) {
+        keys[event.key] = true;
+    }
+
 }
 
 function stopRun(event) {
     event.preventDefault();
-    keys[event.key] = false;
+    if (event.key in keys) {
+        keys[event.key] = false;
+    }
 }
 
 function moveRoad() {
@@ -119,6 +132,9 @@ function moveEnemy() {
                 setting.start = false;
                 start.classList.remove('hide');
                 start.style.top = score.offsetHeight;
+                gameAudio.pause();
+                gameAudio.currentTime = 0;
+                gameOverAudio.play();
         }
 
         item.y += setting.speed / 2;
